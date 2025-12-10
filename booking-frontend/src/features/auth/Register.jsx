@@ -4,6 +4,7 @@ import { api } from "../../api/api";
 
 export default function Register() {
   const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,79 +21,97 @@ export default function Register() {
       role,
     });
 
-    console.log("REGISTER RESPONSE:", res);
-
     if (res.success) {
       setMessage("Registration successful! Redirecting...");
-      setTimeout(() => navigate("/"), 1200); // go to login page
+      setTimeout(() => navigate("/"), 1200);
     } else {
       setMessage(res.message || "Registration failed.");
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form
-        className="bg-white p-6 rounded shadow max-w-sm w-full"
-        onSubmit={handleRegister}
-      >
-        <h1 className="text-2xl font-bold mb-4">Register</h1>
+    <div
+      className="min-h-screen bg-cover bg-center bg-fixed flex items-center justify-center px-4"
+      style={{ backgroundImage: "url('/bg.png')" }}
+    >
+      <div className="card-strong w-full max-w-md">
+        <h1 className="text-3xl font-bold text-center mb-6">Create Account</h1>
 
         {message && (
-          <p className="mb-3 text-center text-blue-600">{message}</p>
+          <p className="bg-blue-50 text-blue-700 p-2 rounded mb-4 text-center">
+            {message}
+          </p>
         )}
 
-        <input
-          type="text"
-          placeholder="Full Name"
-          className="border p-2 w-full mb-3 rounded"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
+        <form onSubmit={handleRegister} className="space-y-4">
+          {/* FULL NAME */}
+          <div>
+            <label className="font-medium block mb-1">Full Name</label>
+            <input
+              type="text"
+              className="input"
+              placeholder="Enter your full name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="border p-2 w-full mb-3 rounded"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+          {/* EMAIL */}
+          <div>
+            <label className="font-medium block mb-1">Email</label>
+            <input
+              type="email"
+              className="input"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
 
-        <input
-          type="password"
-          placeholder="Password"
-          className="border p-2 w-full mb-3 rounded"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+          {/* PASSWORD */}
+          <div>
+            <label className="font-medium block mb-1">Password</label>
+            <input
+              type="password"
+              className="input"
+              placeholder="Create a password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
 
-        {/* Optional: Choose role (admin for testing admin panel) */}
-        <select
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
-          className="border p-2 w-full mb-3 rounded"
-        >
-          <option value="user">User</option>
-          <option value="admin">Admin (for testing)</option>
-        </select>
+          {/* ROLE */}
+          <div>
+            <label className="font-medium block mb-1">Account Type</label>
+            <select
+              className="input"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+            >
+              <option value="user">User</option>
+              <option value="admin">Admin (testing)</option>
+            </select>
+          </div>
 
-        <button
-          className="bg-blue-600 text-white p-2 w-full rounded"
-          type="submit"
-        >
-          Register
-        </button>
+          {/* REGISTER BUTTON */}
+          <button className="btn btn-primary w-full" type="submit">
+            Register
+          </button>
+        </form>
 
-        <p
-          className="text-center text-sm text-blue-500 mt-3 cursor-pointer"
-          onClick={() => navigate("/")}
-        >
-          Already have an account? Login
+        <p className="text-center mt-4 muted">
+          Already registered?{" "}
+          <span
+            className="text-blue-600 font-semibold cursor-pointer"
+            onClick={() => navigate("/")}
+          >
+            Login
+          </span>
         </p>
-      </form>
+      </div>
     </div>
   );
 }

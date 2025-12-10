@@ -22,80 +22,89 @@ export default function RoomsAvailability() {
     setLoading(false);
   }
 
-  // Fetch whenever date changes
   useEffect(() => {
     fetchAvailability();
   }, [date]);
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div
+      className="min-h-screen bg-cover bg-center bg-fixed"
+      style={{ backgroundImage: "url('/bg.png')" }}
+    >
       <Navbar />
 
-      {/* PAGE HEADER */}
-      <div className="max-w-5xl mx-auto mt-8 px-4">
-        <h1 className="text-3xl font-bold mb-4">Room Availability</h1>
+      <div className="container mt-12 max-w-5xl">
+        <div className="card-strong">
+          <h1 className="text-3xl font-bold mb-6 text-center">
+            Room Availability
+          </h1>
 
-        {/* DATE PICKER */}
-        <div className="bg-white p-4 rounded shadow mb-6">
-          <label className="block text-gray-700 font-medium mb-2">
-            Select a date:
-          </label>
-          <input
-            type="date"
-            className="border p-2 rounded w-64"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </div>
+          {/* DATE PICKER */}
+          <div className="mb-6">
+            <label className="block font-medium mb-2">Select a date:</label>
+            <input
+              type="date"
+              className="input w-64"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+          </div>
 
-        {/* LOADING */}
-        {loading && (
-          <p className="text-gray-600 text-lg">Loading availability...</p>
-        )}
+          {/* LOADING */}
+          {loading && (
+            <p className="text-gray-600 text-lg text-center">
+              Loading availability...
+            </p>
+          )}
 
-        {/* ROOMS GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {rooms.map((room) => (
-            <div key={room.roomId} className="bg-white p-5 rounded shadow">
-              <h2 className="text-xl font-bold mb-2">{room.roomName}</h2>
-              <p className="text-gray-600 mb-3">
-                Available slots:
-              </p>
+          {/* ROOMS GRID */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {rooms.map((room) => (
+              <div
+                key={room.roomId}
+                className="p-5 bg-white/80 rounded shadow backdrop-blur-md"
+              >
+                <h2 className="text-xl font-semibold mb-2">
+                  {room.roomName}
+                </h2>
+                <p className="text-gray-700 mb-3">Available slots:</p>
 
-              {/* AVAILABLE TIME SLOTS */}
-              <div className="space-y-2">
-                {room.availableSlots.length === 0 && (
-                  <p className="text-red-500">No available times.</p>
-                )}
+                <div className="space-y-2">
+                  {room.availableSlots.length === 0 && (
+                    <p className="text-red-600">No available times.</p>
+                  )}
 
-                {room.availableSlots.map((slot, idx) => (
-                  <div
-                    key={idx}
-                    className="flex justify-between items-center p-3 bg-gray-100 rounded"
-                  >
-                    <span>
-                      {slot.start} → {slot.end}
-                    </span>
-
-                    <button
-                      onClick={() =>
-                        (window.location.href = `/bookings/new?room=${room.roomId}&start=${slot.start}&end=${slot.end}`)
-                      }
-                      className="bg-blue-600 text-white px-3 py-1 rounded"
+                  {room.availableSlots.map((slot, idx) => (
+                    <div
+                      key={idx}
+                      className="flex justify-between items-center p-3 bg-gray-100 rounded"
                     >
-                      Book
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+                      <span>
+                        {slot.start} → {slot.end}
+                      </span>
 
-        {/* EMPTY STATE */}
-        {!loading && rooms.length === 0 && date && (
-          <p className="text-gray-500 mt-6">No rooms found for this date.</p>
-        )}
+                      <button
+                        onClick={() =>
+                          (window.location.href = `/bookings/new?room=${room.roomId}&start=${slot.start}&end=${slot.end}`)
+                        }
+                        className="btn btn-primary px-3 py-1"
+                      >
+                        Book
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* EMPTY STATE */}
+          {!loading && rooms.length === 0 && date && (
+            <p className="text-gray-500 mt-6 text-center">
+              No rooms found for this date.
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

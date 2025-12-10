@@ -29,7 +29,6 @@ export default function CreateBooking() {
     if (Array.isArray(res)) setRooms(res);
   }
 
-  
   useEffect(() => {
     if (token) fetchRooms();
   }, [token]);
@@ -54,67 +53,79 @@ export default function CreateBooking() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div
+      className="min-h-screen bg-cover bg-center bg-fixed"
+      style={{ backgroundImage: "url('/bg.png')" }}
+    >
       <Navbar />
+      
 
-      <div className="max-w-xl mx-auto mt-10 bg-white p-6 rounded shadow">
-        <h1 className="text-2xl font-bold mb-4">Create Booking</h1>
+      <div className="container mt-12">
+        <div className="card-strong max-w-xl mx-auto">
+          <h1 className="text-3xl font-bold mb-6 text-center">Create Booking</h1>
 
-        {error && (
-          <p className="bg-red-100 text-red-600 p-2 rounded mb-3">{error}</p>
-        )}
+          {error && (
+            <p className="bg-red-50 text-red-600 p-2 rounded mb-4 text-center">
+              {error}
+            </p>
+          )}
 
-        {success && (
-          <p className="bg-green-100 text-green-600 p-2 rounded mb-3">
-            {success}
-          </p>
-        )}
+          {success && (
+            <p className="bg-green-50 text-green-700 p-2 rounded mb-4 text-center">
+              {success}
+            </p>
+          )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block font-medium mb-1">Select Room</label>
-            <select
-              className="border p-2 rounded w-full"
-              value={roomId}
-              onChange={(e) => setRoomId(e.target.value)}
-              required
-            >
-              <option value="">Choose a room</option>
+          <form onSubmit={handleSubmit} className="space-y-4">
 
-              {rooms.map((r) => (
-                <option key={r.id} value={r.id}>
-                  {r.name} (capacity {r.capacity})
-                </option>
-              ))}
-            </select>
-          </div>
+            {/* SELECT ROOM */}
+            <div>
+              <label className="font-medium block mb-1">Select Room</label>
+              <select
+                className="input"
+                value={roomId}
+                onChange={(e) => setRoomId(e.target.value)}
+                required
+              >
+                <option value="">Choose a room</option>
 
-          <div>
-            <label className="block font-medium mb-1">Start Time</label>
-            <input
-              type="datetime-local"
-              className="border p-2 rounded w-full"
-              value={startTime}
-              onChange={(e) => setStartTime(e.target.value)}
-              required
-            />
-          </div>
+                {rooms.map((r) => (
+                  <option key={r.id} value={r.id}>
+                    {r.name} (capacity {r.capacity})
+                  </option>
+                ))}
+              </select>
+            </div>
 
-          <div>
-            <label className="block font-medium mb-1">End Time</label>
-            <input
-              type="datetime-local"
-              className="border p-2 rounded w-full"
-              value={endTime}
-              onChange={(e) => setEndTime(e.target.value)}
-              required
-            />
-          </div>
+            {/* START TIME */}
+            <div>
+              <label className="font-medium block mb-1">Start Time</label>
+              <input
+                type="datetime-local"
+                className="input"
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+                required
+              />
+            </div>
 
-          <button className="w-full bg-blue-600 text-white p-2 rounded mt-2">
-            Confirm Booking
-          </button>
-        </form>
+            {/* END TIME */}
+            <div>
+              <label className="font-medium block mb-1">End Time</label>
+              <input
+                type="datetime-local"
+                className="input"
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+                required
+              />
+            </div>
+
+            <button className="btn btn-primary w-full mt-2">
+              Confirm Booking
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );

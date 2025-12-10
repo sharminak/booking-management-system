@@ -33,61 +33,69 @@ export default function MyBookings() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div
+      className="min-h-screen bg-cover bg-center bg-fixed"
+      style={{ backgroundImage: "url('/bg.png')" }}
+    >
       <Navbar />
 
-      <div className="max-w-4xl mx-auto mt-10 px-4">
-        <h1 className="text-3xl font-bold mb-6">My Bookings</h1>
+      <div className="container mt-12">
+        <div className="card-strong max-w-4xl mx-auto">
+          <h1 className="text-3xl font-bold mb-6 text-center">My Bookings</h1>
 
-        {cancelMessage && (
-          <p className="bg-green-100 text-green-600 p-3 rounded mb-4">
-            {cancelMessage}
-          </p>
-        )}
+          {cancelMessage && (
+            <p className="bg-green-50 text-green-700 p-3 rounded mb-5 text-center">
+              {cancelMessage}
+            </p>
+          )}
 
-        {loading && (
-          <p className="text-gray-600 text-lg">Loading your bookings...</p>
-        )}
+          {loading && (
+            <p className="text-gray-600 text-lg text-center">
+              Loading your bookings...
+            </p>
+          )}
 
-        <div className="space-y-4">
-          {bookings.map((b) => (
-            <div
-              key={b._id}
-              className="bg-white p-5 rounded shadow flex justify-between"
-            >
-              <div>
-                <h2 className="text-xl font-semibold">{b.roomName}</h2>
-                <p className="text-gray-600">
-                  {new Date(b.startTime).toLocaleString()} →{" "}
-                  {new Date(b.endTime).toLocaleString()}
-                </p>
+          {/* BOOKINGS LIST */}
+          <div className="space-y-4">
+            {bookings.map((b) => (
+              <div key={b._id} className="p-5 bg-white/80 rounded shadow flex justify-between items-start backdrop-blur-md">
+                <div>
+                  <h2 className="text-xl font-semibold">{b.roomName}</h2>
 
-                <p
-                  className={
-                    b.status === "cancelled"
-                      ? "text-red-600 mt-2"
-                      : "text-green-600 mt-2"
-                  }
-                >
-                  Status: {b.status}
-                </p>
+                  <p className="text-gray-700 mt-1">
+                    {new Date(b.startTime).toLocaleString()} →{" "}
+                    {new Date(b.endTime).toLocaleString()}
+                  </p>
+
+                  <p
+                    className={`mt-2 font-medium ${
+                      b.status === "cancelled"
+                        ? "text-red-600"
+                        : "text-green-600"
+                    }`}
+                  >
+                    Status: {b.status}
+                  </p>
+                </div>
+
+                {b.status === "active" && (
+                  <button
+                    onClick={() => cancelBooking(b._id)}
+                    className="btn btn-danger"
+                  >
+                    Cancel
+                  </button>
+                )}
               </div>
+            ))}
+          </div>
 
-              {b.status === "active" && (
-                <button
-                  onClick={() => cancelBooking(b._id)}
-                  className="bg-red-600 text-white px-4 py-2 rounded h-fit"
-                >
-                  Cancel
-                </button>
-              )}
-            </div>
-          ))}
+          {!loading && bookings.length === 0 && (
+            <p className="text-gray-500 mt-6 text-center">
+              You have no bookings.
+            </p>
+          )}
         </div>
-
-        {!loading && bookings.length === 0 && (
-          <p className="text-gray-500 mt-6">You have no bookings.</p>
-        )}
       </div>
     </div>
   );

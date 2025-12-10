@@ -5,7 +5,6 @@ export default function Navbar() {
   const { token, setToken } = useAuth();
   const navigate = useNavigate();
 
-  // Decode token (simple way)
   let isAdmin = false;
   try {
     const payload = JSON.parse(atob(token.split(".")[1]));
@@ -18,22 +17,51 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-blue-600 text-white p-4 flex justify-between">
-      <div className="flex space-x-4">
-        <Link to="/rooms" className="hover:underline">Rooms</Link>
-        <Link to="/bookings" className="hover:underline">My Bookings</Link>
+    <nav className="w-full bg-white/40 backdrop-blur-lg shadow-md border-b border-white/30 fixed top-0 left-0 z-50">
+      <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-3">
 
-        {isAdmin && (
-          <Link to="/admin" className="hover:underline font-bold">Admin</Link>
-        )}
+        {/* Left Section - Logo / App Name */}
+        <Link
+          to="/rooms"
+          className="text-2xl font-extrabold text-blue-700 tracking-wide"
+        >
+          BMS
+        </Link>
+
+        {/* Center Navigation Links */}
+        <div className="flex space-x-6 text-lg font-medium">
+          <Link
+            to="/rooms"
+            className="hover:text-blue-700 transition"
+          >
+            Rooms
+          </Link>
+
+          <Link
+            to="/bookings"
+            className="hover:text-blue-700 transition"
+          >
+            My Bookings
+          </Link>
+
+          {isAdmin && (
+            <Link
+              to="/admin"
+              className="hover:text-blue-700 transition"
+            >
+              Admin
+            </Link>
+          )}
+        </div>
+
+        {/* Logout Button */}
+        <button
+          onClick={logout}
+          className="btn btn-primary px-4 py-1.5"
+        >
+          Logout
+        </button>
       </div>
-
-      <button
-        onClick={logout}
-        className="bg-white text-blue-600 px-3 py-1 rounded"
-      >
-        Logout
-      </button>
     </nav>
   );
 }
