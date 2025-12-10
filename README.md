@@ -162,9 +162,9 @@ If no conflict is found, the booking is stored in memory.
 booking-management-system/
  ┣ booking-backend/
  ┃ ┣ controllers/
- ┃ ┣ routes/
- ┃ ┣ middlewares/
  ┃ ┣ data/
+ ┃ ┣ middlewares/
+ ┃ ┣ routes/
  ┃ ┗ server.js
  ┗ booking-frontend/
    ┣ src/
