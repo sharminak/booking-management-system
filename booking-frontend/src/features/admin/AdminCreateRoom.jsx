@@ -32,9 +32,11 @@ export default function AdminCreateRoom() {
       className="min-h-screen bg-cover bg-center bg-fixed"
       style={{ backgroundImage: "url('/bg.png')" }}
     >
+      
+      <div className="absolute inset-0 bg-black/40"></div>
       <Navbar />
 
-      <div className="container mt-12">
+      <div className=" relative z-10 container mt-12">
         <div className="card-strong max-w-lg mx-auto">
           <h1 className="text-3xl font-bold mb-6 text-center">
             Create New Room
@@ -47,7 +49,7 @@ export default function AdminCreateRoom() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* ROOM NAME */}
+           
             <div>
               <label className="font-medium block mb-1">Room Name</label>
               <input
@@ -59,7 +61,7 @@ export default function AdminCreateRoom() {
               />
             </div>
 
-            {/* ROOM CAPACITY */}
+            
             <div>
               <label className="font-medium block mb-1">Capacity</label>
               <input
@@ -72,7 +74,7 @@ export default function AdminCreateRoom() {
               />
             </div>
 
-            {/* SUBMIT BUTTON */}
+           
             <button className="btn btn-primary w-full" type="submit">
               Create Room
             </button>

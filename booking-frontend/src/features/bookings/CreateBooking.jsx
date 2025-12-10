@@ -11,11 +11,16 @@ export default function CreateBooking() {
   const { token } = useAuth();
 
   const params = new URLSearchParams(window.location.search);
+
+  
   const initialRoomId = params.get("room");
   const initialStart = params.get("start");
   const initialEnd = params.get("end");
 
-  const [roomId, setRoomId] = useState(initialRoomId || "");
+  
+  const [roomId, setRoomId] = useState(
+    initialRoomId ? String(initialRoomId) : ""
+  );
   const [startTime, setStartTime] = useState(initialStart || "");
   const [endTime, setEndTime] = useState(initialEnd || "");
   const [rooms, setRooms] = useState([]);
@@ -26,6 +31,7 @@ export default function CreateBooking() {
   async function fetchRooms() {
     const res = await api.get("/rooms", token);
     console.log("ROOMS FROM BACKEND:", res);
+
     if (Array.isArray(res)) setRooms(res);
   }
 
@@ -57,12 +63,15 @@ export default function CreateBooking() {
       className="min-h-screen bg-cover bg-center bg-fixed"
       style={{ backgroundImage: "url('/bg.png')" }}
     >
-      <Navbar />
       
+      <div className="absolute inset-0 bg-black/40"></div>
+      <Navbar />
 
-      <div className="container mt-12">
+      <div className="relative z-10 container mt-12">
         <div className="card-strong max-w-xl mx-auto">
-          <h1 className="text-3xl font-bold mb-6 text-center">Create Booking</h1>
+          <h1 className="text-3xl font-bold mb-6 text-center">
+            Create Booking
+          </h1>
 
           {error && (
             <p className="bg-red-50 text-red-600 p-2 rounded mb-4 text-center">
@@ -77,8 +86,7 @@ export default function CreateBooking() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-
-            {/* SELECT ROOM */}
+           
             <div>
               <label className="font-medium block mb-1">Select Room</label>
               <select
@@ -97,7 +105,7 @@ export default function CreateBooking() {
               </select>
             </div>
 
-            {/* START TIME */}
+            
             <div>
               <label className="font-medium block mb-1">Start Time</label>
               <input
@@ -109,7 +117,7 @@ export default function CreateBooking() {
               />
             </div>
 
-            {/* END TIME */}
+            
             <div>
               <label className="font-medium block mb-1">End Time</label>
               <input

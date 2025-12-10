@@ -20,7 +20,7 @@ export default function Navbar() {
     <nav className="w-full bg-white/40 backdrop-blur-lg shadow-md border-b border-white/30 fixed top-0 left-0 z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-3">
 
-        {/* Left Section - Logo / App Name */}
+       
         <Link
           to="/rooms"
           className="text-2xl font-extrabold text-blue-700 tracking-wide"
@@ -28,7 +28,7 @@ export default function Navbar() {
           BMS
         </Link>
 
-        {/* Center Navigation Links */}
+      
         <div className="flex space-x-6 text-lg font-medium">
           <Link
             to="/rooms"
@@ -54,7 +54,7 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Logout Button */}
+        
         <button
           onClick={logout}
           className="btn btn-primary px-4 py-1.5"

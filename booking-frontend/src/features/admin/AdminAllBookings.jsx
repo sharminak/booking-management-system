@@ -28,16 +28,18 @@ export default function AdminAllBookings() {
       className="min-h-screen bg-cover bg-center bg-fixed"
       style={{ backgroundImage: "url('/bg.png')" }}
     >
+      
+      <div className="absolute inset-0 bg-black/40"></div>
       <Navbar />
 
-      <div className="container mt-10">
+      <div className="relative z-10 container mt-10">
         <div className="card-strong mb-8">
           <h1 className="text-3xl font-bold">All Bookings</h1>
           <p className="muted mt-1">Admin overview of all rooms & bookings</p>
         </div>
 
         {loading && (
-          <p className="text-gray-700 text-lg text-center">Loading bookings...</p>
+          <p className="text-white-700 text-lg text-center">Loading bookings...</p>
         )}
 
         <div className="space-y-8">

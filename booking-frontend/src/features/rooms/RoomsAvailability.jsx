@@ -31,15 +31,17 @@ export default function RoomsAvailability() {
       className="min-h-screen bg-cover bg-center bg-fixed"
       style={{ backgroundImage: "url('/bg.png')" }}
     >
+      
+      <div className="absolute inset-0 bg-black/40"></div>
       <Navbar />
 
-      <div className="container mt-12 max-w-5xl">
+      <div className="relative z-10 container mt-12 max-w-5xl">
         <div className="card-strong">
           <h1 className="text-3xl font-bold mb-6 text-center">
             Room Availability
           </h1>
 
-          {/* DATE PICKER */}
+        
           <div className="mb-6">
             <label className="block font-medium mb-2">Select a date:</label>
             <input
@@ -50,14 +52,14 @@ export default function RoomsAvailability() {
             />
           </div>
 
-          {/* LOADING */}
+        
           {loading && (
             <p className="text-gray-600 text-lg text-center">
               Loading availability...
             </p>
           )}
 
-          {/* ROOMS GRID */}
+        
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {rooms.map((room) => (
               <div
@@ -98,7 +100,7 @@ export default function RoomsAvailability() {
             ))}
           </div>
 
-          {/* EMPTY STATE */}
+        
           {!loading && rooms.length === 0 && date && (
             <p className="text-gray-500 mt-6 text-center">
               No rooms found for this date.

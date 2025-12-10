@@ -37,9 +37,11 @@ export default function MyBookings() {
       className="min-h-screen bg-cover bg-center bg-fixed"
       style={{ backgroundImage: "url('/bg.png')" }}
     >
+      
+      <div className="absolute inset-0 bg-black/40"></div>
       <Navbar />
 
-      <div className="container mt-12">
+      <div className="relative z-10 container mt-12">
         <div className="card-strong max-w-4xl mx-auto">
           <h1 className="text-3xl font-bold mb-6 text-center">My Bookings</h1>
 
@@ -55,7 +57,7 @@ export default function MyBookings() {
             </p>
           )}
 
-          {/* BOOKINGS LIST */}
+          
           <div className="space-y-4">
             {bookings.map((b) => (
               <div key={b._id} className="p-5 bg-white/80 rounded shadow flex justify-between items-start backdrop-blur-md">

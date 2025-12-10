@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../api/api";
+import "../../index.css";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function Register() {
     });
 
     if (res.success) {
-      setMessage("Registration successful! Redirecting...");
+      setMessage("Registration successful! Redirecting…");
       setTimeout(() => navigate("/"), 1200);
     } else {
       setMessage(res.message || "Registration failed.");
@@ -31,86 +32,65 @@ export default function Register() {
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center bg-fixed flex items-center justify-center px-4"
+      className="min-h-screen bg-cover bg-center bg-fixed relative"
       style={{ backgroundImage: "url('/bg.png')" }}
     >
-      <div className="card-strong w-full max-w-md">
-        <h1 className="text-3xl font-bold text-center mb-6">Create Account</h1>
+      <div className="absolute inset-0 bg-black/40"></div>
 
-        {message && (
-          <p className="bg-blue-50 text-blue-700 p-2 rounded mb-4 text-center">
-            {message}
-          </p>
-        )}
+      <div className="relative z-10 flex justify-center items-center min-h-screen">
+        <form
+          onSubmit={handleRegister}
+          className="card-strong max-w-sm w-full space-y-4"
+        >
+          <h1 className="text-2xl font-bold text-center">Register</h1>
 
-        <form onSubmit={handleRegister} className="space-y-4">
-          {/* FULL NAME */}
-          <div>
-            <label className="font-medium block mb-1">Full Name</label>
-            <input
-              type="text"
-              className="input"
-              placeholder="Enter your full name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
+          {message && (
+            <p className="text-blue-600 text-center">{message}</p>
+          )}
 
-          {/* EMAIL */}
-          <div>
-            <label className="font-medium block mb-1">Email</label>
-            <input
-              type="email"
-              className="input"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
+          <input
+            className="input"
+            placeholder="Full Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
 
-          {/* PASSWORD */}
-          <div>
-            <label className="font-medium block mb-1">Password</label>
-            <input
-              type="password"
-              className="input"
-              placeholder="Create a password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
+          <input
+            className="input"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-          {/* ROLE */}
-          <div>
-            <label className="font-medium block mb-1">Account Type</label>
-            <select
-              className="input"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-            >
-              <option value="user">User</option>
-              <option value="admin">Admin (testing)</option>
-            </select>
-          </div>
+          <input
+            type="password"
+            className="input"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
-          {/* REGISTER BUTTON */}
-          <button className="btn btn-primary w-full" type="submit">
-            Register
-          </button>
-        </form>
+          <select
+            className="input"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          >
+            <option value="user">User</option>
+            <option value="admin">Admin (testing)</option>
+          </select>
 
-        <p className="text-center mt-4 muted">
-          Already registered?{" "}
-          <span
-            className="text-blue-600 font-semibold cursor-pointer"
+          <button className="btn btn-primary w-full">Register</button>
+
+          <p
+            className="text-blue-500 text-center cursor-pointer"
             onClick={() => navigate("/")}
           >
-            Login
-          </span>
-        </p>
+            Already have an account? Login
+          </p>
+        </form>
       </div>
     </div>
   );
